@@ -40,6 +40,7 @@
   <dependencies>
     <!-- Example usage: remove <version> if managed by BOM -->
     <dependency>
+      <version>org.jenkins-ci.plugins:workflow-cps:jar</version>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>workflow-cps</artifactId>
       <scope>test</scope>
