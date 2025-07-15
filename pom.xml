@@ -1,213 +1,99 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jenkinsci.maven.plugins</groupId>
+  <artifactId>forensics</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
 
-  <parent>
-    <groupId>org.jvnet.hudson.plugins</groupId>
-    <artifactId>analysis-pom</artifactId>
-    <version>8.6.0</version>
-    <relativePath />
-  </parent>
-
-  <groupId>io.jenkins.plugins</groupId>
-  <artifactId>forensics-api</artifactId>
-  <version>${revision}${changelist}</version>
-  <packaging>hpi</packaging>
-
-  <name>Forensics API Plugin</name>
-  <description>Defines an API for Jenkins to mine and analyze data from a source code repository.</description>
-  <url>https://github.com/jenkinsci/forensics-api-plugin</url>
+  <name>Forensics Maven Plugin</name>
+  <description>A Jenkins Maven plugin for forensics</description>
 
   <properties>
-    <revision>2.7.0</revision>
-    <changelist>-SNAPSHOT</changelist>
-
-    <module.name>${project.groupId}.forensics.api</module.name>
-
-    <!-- Library Dependencies Versions -->
-    <testcontainers.version>1.20.3</testcontainers.version>
-
+    <maven.plugin.api.version>3.8.8</maven.plugin.api.version>
+    <maven.plugin.annotations.version>3.6.0</maven.plugin.annotations.version>
+    <maven.project.version>2.2.1</maven.project.version>
+    <jetty.version>6.1.26</jetty.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <licenses>
-    <license>
-      <name>MIT license</name>
-      <comments>All source code is under the MIT license.</comments>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <name>Ullrich Hafner</name>
-      <id>uhafner</id>
-      <email>ullrich.hafner@gmail.com</email>
-    </developer>
-  </developers>
-
-  <scm>
-    <connection>scm:git:https://github.com/jenkinsci/forensics-api-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/forensics-api-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/forensics-api-plugin</url>
-    <tag>${scmTag}</tag>
-  </scm>
-
   <dependencies>
-
+    <!-- Maven Plugin API -->
     <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>plugin-util-api</artifactId>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.plugin.api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>${maven.plugin.annotations.version}</version>
+      <scope>provided</scope>
     </dependency>
 
-    <!-- Jenkins Plugin Dependencies -->
+    <!-- Maven Project -->
     <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>font-awesome-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>bootstrap5-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>jquery3-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>echarts-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>data-tables-api</artifactId>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>${maven.project.version}</version>
     </dependency>
 
+    <!-- Jetty dependencies -->
     <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-api</artifactId>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty</artifactId>
+      <version>${jetty.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-multibranch</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-cps</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-job</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>branch-api</artifactId>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>${jetty.version}</version>
     </dependency>
 
-    <!-- Test Dependencies -->
-    <dependency>
-      <groupId>io.jenkins.plugins</groupId>
-      <artifactId>plugin-util-api</artifactId>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>ssh-credentials</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>ssh-slaves</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-basic-steps</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-durable-task-step</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkinsci.plugins</groupId>
-      <artifactId>pipeline-model-definition</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>testcontainers</artifactId>
-      <version>${testcontainers.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-compress</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
+    <!-- Add other dependencies your project needs here -->
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </repository>
-    <repository>
-      <id>incrementals.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/incrementals/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <build>
     <plugins>
+      <!-- Maven Compiler Plugin -->
       <plugin>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
-          <packages combine.children="append">
-            <package>io.jenkins.plugins.forensics</package>
-          </packages>
-          <excludes combine.children="append">
-          </excludes>
-          <entryPointClassPackage>io.jenkins.plugins.forensics.assertions</entryPointClassPackage>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.revapi</groupId>
-        <artifactId>revapi-maven-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-          <analysisConfiguration>
-            <revapi.differences id="manually-vetted">
-              <attachments>
-                <vetted>ok</vetted>
-              </attachments>
-              <differences combine.children="append">
-                <item>
-                  <ignore>true</ignore>
-                  <code>java.class.externalClassExposedInAPI</code>
-                  <classQualifiedName>io.jenkins.plugins.datatables.TableConfiguration.SelectStyle</classQualifiedName>
-                  <justification>This enum is safe to be exposed.</justification>
-                </item>
-                <item>
-                  <ignore>true</ignore>
-                  <code>java.method.parameterTypeChanged</code>
-                  <classQualifiedName>io.jenkins.plugins.datatables.TableConfiguration</classQualifiedName>
-                  <justification>This enum is safe to be exposed.</justification>
-                </item>
-              </differences>
-            </revapi.differences>
-          </analysisConfiguration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
 
+      <!-- Maven Plugin Plugin (to build Maven plugins) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>help-goal</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Other build plugins you may use -->
     </plugins>
   </build>
+
 </project>
