@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>5.13</version> <!-- Must be hard-coded -->
+    <version>5.13</version>  <!-- Hardcoded plugin parent version -->
   </parent>
 
   <groupId>io.jenkins.plugins</groupId>
@@ -43,7 +43,18 @@
     <maven.compiler.target>${java.level}</maven.compiler.target>
   </properties>
 
-  <!-- ✅ Tell Maven where to fetch Jenkins plugin parent POM -->
+  <!-- ✅ Fetch parent POM and plugins -->
+  <repositories>
+    <repository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </repository>
+    <repository>
+      <id>jenkins-public</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+
   <pluginRepositories>
     <pluginRepository>
       <id>jenkins-releases</id>
@@ -56,13 +67,14 @@
   </pluginRepositories>
 
   <dependencies>
-    <!-- Jenkins core support -->
+    <!-- Jenkins core -->
     <dependency>
       <groupId>org.jenkins-ci.main</groupId>
       <artifactId>jenkins-core</artifactId>
       <version>${jenkins.version}</version>
       <scope>provided</scope>
     </dependency>
+
     <!-- Plugin annotations -->
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
@@ -70,6 +82,7 @@
       <version>3.6</version>
       <scope>provided</scope>
     </dependency>
+
     <!-- Unit testing -->
     <dependency>
       <groupId>junit</groupId>
@@ -81,7 +94,6 @@
 
   <build>
     <plugins>
-      <!-- Java compiler -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
@@ -91,7 +103,6 @@
         </configuration>
       </plugin>
 
-      <!-- HPI plugin to build the .hpi file -->
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
