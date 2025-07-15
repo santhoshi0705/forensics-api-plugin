@@ -1,54 +1,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>io.jenkins.plugins</groupId>
-  <artifactId>sample-plugin</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>hpi</packaging>
-  <name>Sample Jenkins Plugin</name>
-  <url>https://github.com/your-org/sample-plugin</url>
-
-  <properties>
-    <jenkins.version>2.414.3</jenkins.version>
-    <java.level>11</java.level>
-    <plugin.parent.version>4.74</plugin.parent.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
   <parent>
     <groupId>io.jenkins.plugin</groupId>
     <artifactId>plugin</artifactId>
-    <version>${plugin.parent.version}</version>
+    <version>4.74</version> <!-- latest plugin-pom version -->
   </parent>
 
+  <groupId>io.jenkins.plugins</groupId>
+  <artifactId>forensics-api-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>hpi</packaging>
+
+  <name>Forensics API Plugin</name>
+  <url>https://github.com/santhoshi0705/forensics-api-plugin</url>
+
+  <properties>
+    <java.level>11</java.level>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencies>
-    <!-- Add any Jenkins plugin dependencies below -->
-
-    <!-- Example: Jenkins plugin dependencies -->
+    <!-- Core Jenkins API -->
     <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>workflow-step-api</artifactId>
-      <version>2.24</version>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <!-- Optional: If you are using annotations like @Extension -->
-    <dependency>
-      <groupId>org.jenkins-ci</groupId>
-      <artifactId>symbol-annotation</artifactId>
-      <version>1.23</version>
-      <scope>provided</scope>
-    </dependency>
-
+    <!-- Optional: add other plugin dependencies here, e.g., wf-step-api, credentials, etc. -->
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Compiler plugin setup for Java 11 -->
+      <!-- You already inherit maven-compiler and hpi plugin from parent, but here's explicit config -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -59,12 +47,18 @@
     </plugins>
   </build>
 
+  <scm>
+    <url>https://github.com/santhoshi0705/forensics-api-plugin.git</url>
+    <connection>scm:git:git://github.com/santhoshi0705/forensics-api-plugin.git</connection>
+    <developerConnection>scm:git:ssh://github.com/santhoshi0705/forensics-api-plugin.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <developers>
     <developer>
-      <id>your-id</id>
-      <name>Your Name</name>
-      <email>your@email.com</email>
+      <id>santhoshi</id>
+      <name>Santhosh I</name>
+      <email>santhosh@example.com</email>
     </developer>
   </developers>
-
 </project>
