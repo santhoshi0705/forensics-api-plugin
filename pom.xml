@@ -2,33 +2,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>org.jenkinsci.maven.plugins</groupId>
   <artifactId>forensics</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
-  <name>Forensics Maven Plugin</name>
-  <description>A Jenkins Maven plugin for forensics</description>
-
   <properties>
     <maven.plugin.api.version>3.8.8</maven.plugin.api.version>
     <maven.plugin.annotations.version>3.6.0</maven.plugin.annotations.version>
-    <maven.project.version>2.2.1</maven.project.version>
+    <maven.project.version>3.8.8</maven.project.version>
+    <hpi.plugin.version>3.12</hpi.plugin.version>
     <jetty.version>6.1.26</jetty.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
-    <!-- Maven Plugin API -->
+    <!-- Maven Plugin API for Mojo classes -->
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${maven.plugin.api.version}</version>
     </dependency>
+
+    <!-- Maven Plugin Annotations -->
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
@@ -36,14 +36,22 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Maven Project -->
+    <!-- Maven Project to get MavenProject and related classes -->
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-project</artifactId>
       <version>${maven.project.version}</version>
     </dependency>
 
-    <!-- Jetty dependencies -->
+    <!-- Jenkins HPI plugin dependency (contains classes like AbstractHpiMojo) -->
+    <dependency>
+      <groupId>org.jenkins-ci.tools</groupId>
+      <artifactId>maven-hpi-plugin</artifactId>
+      <version>${hpi.plugin.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Jetty 6 plugin dependencies -->
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
@@ -55,12 +63,18 @@
       <version>${jetty.version}</version>
     </dependency>
 
-    <!-- Add other dependencies your project needs here -->
+    <!-- Add Hudson / Jenkins Maven classes for Section, ManifestException, etc. -->
+    <dependency>
+      <groupId>org.jvnet.hudson.maven</groupId>
+      <artifactId>hudson-maven-bridge</artifactId>
+      <version>2.10</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Maven Compiler Plugin -->
+      <!-- Compiler Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -71,7 +85,7 @@
         </configuration>
       </plugin>
 
-      <!-- Maven Plugin Plugin (to build Maven plugins) -->
+      <!-- Maven Plugin Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
@@ -91,9 +105,6 @@
           </execution>
         </executions>
       </plugin>
-
-      <!-- Other build plugins you may use -->
     </plugins>
   </build>
-
 </project>
