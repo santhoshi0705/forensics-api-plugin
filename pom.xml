@@ -1,15 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>io.jenkins.plugin</groupId>
-    <artifactId>plugin</artifactId>
-    <version>4.74</version>
-    <relativePath>false</relativePath>
-  </parent>
 
   <groupId>io.jenkins.plugins</groupId>
   <artifactId>forensics-api-plugin</artifactId>
@@ -17,62 +10,47 @@
   <packaging>hpi</packaging>
 
   <name>Forensics API Plugin</name>
-  <url>https://github.com/santhoshi0705/forensics-api-plugin</url>
+  <url>http://your.plugin.url/</url>
+
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>4.79</version> <!-- latest 4.x series -->
+    <relativePath/>
+  </parent>
 
   <properties>
-    <java.level>11</java.level>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Minimum supported Jenkins and Java for parent POM ≥ 4.52 -->
+    <jenkins.version>2.361.4</jenkins.version>
+    <no-test-jar>false</no-test-jar>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.jenkins.tools.bom</groupId>
+        <artifactId>bom-2.361.x</artifactId>
+        <version>1750.v0071fa_4c4a_e3</version> <!-- latest plugin BOM -->
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Example usage: remove <version> if managed by BOM -->
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>workflow-cps</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Add other dependencies here (without version tags when using BOM) -->
+  </dependencies>
+
   <repositories>
-    <!-- Required to resolve plugin-pom -->
     <repository>
       <id>jenkins-releases</id>
       <url>https://repo.jenkins-ci.org/releases/</url>
     </repository>
   </repositories>
-
-  <pluginRepositories>
-    <!-- Required for plugin build artifacts -->
-    <pluginRepository>
-      <id>jenkins-releases</id>
-      <url>https://repo.jenkins-ci.org/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.jenkins-ci.main</groupId>
-      <artifactId>jenkins-core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <!-- Add more plugin dependencies here -->
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.level}</source>
-          <target>${java.level}</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <scm>
-    <url>https://github.com/santhoshi0705/forensics-api-plugin.git</url>
-    <connection>scm:git:https://github.com/santhoshi0705/forensics-api-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:santhoshi0705/forensics-api-plugin.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <developers>
-    <developer>
-      <id>santhoshi</id>
-      <name>Santhosh I</name>
-      <email>santhosh@example.com</email>
-    </developer>
-  </developers>
 </project>
