@@ -2,12 +2,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>5.13</version>
+    <version>5.12</version>
   </parent>
 
   <groupId>io.jenkins.plugins</groupId>
@@ -22,6 +23,13 @@
     <jenkins.version>2.414.3</jenkins.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -44,10 +52,25 @@
     </dependency>
   </dependencies>
 
-  <repositories>
-    <repository>
-      <id>jenkins-releases</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <release>${java.level}</release>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>4.42</version>
+        <configuration>
+          <jenkinsVersion>${jenkins.version}</jenkinsVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
