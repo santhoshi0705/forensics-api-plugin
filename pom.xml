@@ -24,7 +24,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <repositories>
+    <!-- Required to resolve plugin-pom -->
+    <repository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </repository>
+  </repositories>
+
   <pluginRepositories>
+    <!-- Required for plugin build artifacts -->
     <pluginRepository>
       <id>jenkins-releases</id>
       <url>https://repo.jenkins-ci.org/releases/</url>
@@ -37,7 +46,7 @@
       <artifactId>jenkins-core</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!-- Add your other plugin dependencies here -->
+    <!-- Add more plugin dependencies here -->
   </dependencies>
 
   <build>
