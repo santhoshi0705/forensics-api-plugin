@@ -51,6 +51,13 @@
       <version>3.6</version>
       <scope>provided</scope>
     </dependency>
+    <!-- Explicit version to fix missing jakarta.servlet-api version -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -68,13 +75,17 @@
           <release>${java.level}</release>
         </configuration>
       </plugin>
+
+      <!-- Explicitly specify the stable version for maven-hpi-plugin -->
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
+        <version>4.43</version>
         <configuration>
           <jenkinsVersion>${jenkins.version}</jenkinsVersion>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 
