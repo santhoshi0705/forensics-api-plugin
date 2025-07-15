@@ -7,7 +7,8 @@
   <parent>
     <groupId>io.jenkins.plugin</groupId>
     <artifactId>plugin</artifactId>
-    <version>4.74</version> <!-- latest plugin-pom version -->
+    <version>4.74</version>
+    <relativePath>false</relativePath>
   </parent>
 
   <groupId>io.jenkins.plugins</groupId>
@@ -23,20 +24,24 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jenkins-releases</id>
+      <url>https://repo.jenkins-ci.org/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
-    <!-- Core Jenkins API -->
     <dependency>
       <groupId>org.jenkins-ci.main</groupId>
       <artifactId>jenkins-core</artifactId>
       <scope>provided</scope>
     </dependency>
-
-    <!-- Optional: add other plugin dependencies here, e.g., wf-step-api, credentials, etc. -->
+    <!-- Add your other plugin dependencies here -->
   </dependencies>
 
   <build>
     <plugins>
-      <!-- You already inherit maven-compiler and hpi plugin from parent, but here's explicit config -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -49,8 +54,8 @@
 
   <scm>
     <url>https://github.com/santhoshi0705/forensics-api-plugin.git</url>
-    <connection>scm:git:git://github.com/santhoshi0705/forensics-api-plugin.git</connection>
-    <developerConnection>scm:git:ssh://github.com/santhoshi0705/forensics-api-plugin.git</developerConnection>
+    <connection>scm:git:https://github.com/santhoshi0705/forensics-api-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:santhoshi0705/forensics-api-plugin.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
