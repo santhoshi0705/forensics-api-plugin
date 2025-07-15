@@ -10,18 +10,16 @@
   <packaging>hpi</packaging>
 
   <name>Forensics API Plugin</name>
-  <url>http://your.plugin.url/</url>
 
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>4.79</version> <!-- latest 4.x series -->
+    <version>4.53</version> <!-- current latest in 4.x line :contentReference[oaicite:1]{index=1} -->
     <relativePath/>
   </parent>
 
   <properties>
-    <!-- Minimum supported Jenkins and Java for parent POM ≥ 4.52 -->
-    <jenkins.version>2.361.4</jenkins.version>
+    <jenkins.version>2.361.4</jenkins.version> <!-- required baseline :contentReference[oaicite:2]{index=2} -->
     <no-test-jar>false</no-test-jar>
   </properties>
 
@@ -30,28 +28,31 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-2.361.x</artifactId>
-        <version>1750.v0071fa_4c4a_e3</version> <!-- latest plugin BOM -->
-        <type>pom</type>
+        <version>2095.vfc6ed037a_53b</version> <!-- latest known available :contentReference[oaicite:3]{index=3} -->
         <scope>import</scope>
+        <type>pom</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
-    <!-- Example usage: remove <version> if managed by BOM -->
+    <!-- Use BOM-managed plugin dependency without version -->
     <dependency>
-      <version>1750.v0071fa_4c4a_e3</version>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>workflow-cps</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- Add other dependencies here (without version tags when using BOM) -->
+    <!-- Add other plugin/core dependencies here, leave out <version> -->
   </dependencies>
 
   <repositories>
     <repository>
       <id>jenkins-releases</id>
       <url>https://repo.jenkins-ci.org/releases/</url>
+    </repository>
+    <repository>
+      <id>jenkins-incrementals</id>
+      <url>https://repo.jenkins-ci.org/incrementals/</url>
     </repository>
   </repositories>
 </project>
