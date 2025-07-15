@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.jenkins.plugins</groupId>
@@ -14,13 +14,13 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>4.53</version> <!-- current latest in 4.x line :contentReference[oaicite:1]{index=1} -->
+    <version>4.53</version>
     <relativePath/>
   </parent>
 
   <properties>
-    <jenkins.version>2.361.4</jenkins.version> <!-- required baseline :contentReference[oaicite:2]{index=2} -->
-    <no-test-jar>false</no-test-jar>
+    <jenkins.version>2.361.4</jenkins.version>
+    <java.level>11</java.level>
   </properties>
 
   <dependencyManagement>
@@ -28,7 +28,7 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-2.361.x</artifactId>
-        <version>2095.vfc6ed037a_53b</version> <!-- latest known available :contentReference[oaicite:3]{index=3} -->
+        <version>2091.v4987a_57a</version> <!-- a known available stable BOM -->
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -36,13 +36,12 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- Use BOM-managed plugin dependency without version -->
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>workflow-cps</artifactId>
       <scope>test</scope>
+      <!-- No version needed, managed by BOM -->
     </dependency>
-    <!-- Add other plugin/core dependencies here, leave out <version> -->
   </dependencies>
 
   <repositories>
