@@ -5,6 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>5.13</version> <!-- Hardcoded parent version -->
+    </parent>
+
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>forensics-api-plugin</artifactId>
     <version>1.0.0</version>
@@ -30,29 +36,15 @@
     </scm>
 
     <properties>
-        <jenkins.plugin.version>5.13</jenkins.plugin.version> <!-- Latest stable Jenkins plugin parent version -->
-        <jenkins.version>2.414.3</jenkins.version>           <!-- Latest LTS Jenkins core -->
+        <jenkins.version>2.414.3</jenkins.version>
         <java.level>11</java.level>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.level}</maven.compiler.source>
         <maven.compiler.target>${java.level}</maven.compiler.target>
     </properties>
 
-    <parent>
-        <groupId>org.jenkins-ci.plugins</groupId>
-        <artifactId>plugin</artifactId>
-        <version>${jenkins.plugin.version}</version>
-    </parent>
-
-    <repositories>
-        <repository>
-            <id>repo.jenkins-ci.org</id>
-            <url>https://repo.jenkins-ci.org/public/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!-- Jenkins core -->
+        <!-- Jenkins core support -->
         <dependency>
             <groupId>org.jenkins-ci.main</groupId>
             <artifactId>jenkins-core</artifactId>
@@ -60,7 +52,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jenkins plugin annotations -->
+        <!-- Plugin annotations -->
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>plugin-annotations</artifactId>
@@ -68,36 +60,36 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JUnit for unit testing -->
+        <!-- Unit testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Add other dependencies here as needed -->
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.jenkins-ci.tools</groupId>
-                <artifactId>maven-hpi-plugin</artifactId>
-                <version>${jenkins.plugin.version}</version>
-                <configuration>
-                    <jenkinsVersion>${jenkins.version}</jenkinsVersion>
-                    <pluginFirstClassLoader>true</pluginFirstClassLoader>
-                    <failIfMissingSymbol>true</failIfMissingSymbol>
-                </configuration>
-            </plugin>
-
+            <!-- Maven compiler -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
                 <configuration>
                     <source>${java.level}</source>
                     <target>${java.level}</target>
+                </configuration>
+            </plugin>
+
+            <!-- HPI plugin to build the .hpi file -->
+            <plugin>
+                <groupId>org.jenkins-ci.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <version>5.13</version>
+                <configuration>
+                    <jenkinsVersion>${jenkins.version}</jenkinsVersion>
+                    <pluginFirstClassLoader>true</pluginFirstClassLoader>
+                    <failIfMissingSymbol>true</failIfMissingSymbol>
                 </configuration>
             </plugin>
         </plugins>
