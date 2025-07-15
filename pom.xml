@@ -1,57 +1,98 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.jenkins.plugins</groupId>
-  <artifactId>forensics-api-plugin</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>hpi</packaging>
+    <groupId>io.jenkins.plugins</groupId>
+    <artifactId>forensics-api-plugin</artifactId>
+    <version>1.0.0</version>
+    <packaging>hpi</packaging>
 
-  <name>Forensics API Plugin</name>
+    <name>Forensics API Plugin</name>
+    <url>https://github.com/santhoshi0705/forensics-api-plugin</url>
+    <description>A Jenkins plugin providing an API to mine and analyze SCM repository data.</description>
 
-  <parent>
-    <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>plugin</artifactId>
-    <version>4.53</version>
-    <relativePath/>
-  </parent>
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <properties>
-    <jenkins.version>2.361.4</jenkins.version>
-    <java.level>11</java.level>
-  </properties>
+    <scm>
+        <connection>scm:git:https://github.com/santhoshi0705/forensics-api-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/santhoshi0705/forensics-api-plugin.git</developerConnection>
+        <url>https://github.com/santhoshi0705/forensics-api-plugin</url>
+        <tag>HEAD</tag>
+    </scm>
 
-  <dependencyManagement>
+    <properties>
+        <jenkins.version>2.414.1</jenkins.version> <!-- Use the latest stable LTS version -->
+        <java.level>11</java.level>
+        <hpi.pluginName>forensics-api-plugin</hpi.pluginName>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>${java.level}</maven.compiler.source>
+        <maven.compiler.target>${java.level}</maven.compiler.target>
+        <jenkins.plugin.version>4.42</jenkins.plugin.version> <!-- Jenkins plugin parent version -->
+    </properties>
+
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>${jenkins.plugin.version}</version>
+    </parent>
+
     <dependencies>
-      <dependency>
-        <groupId>io.jenkins.tools.bom</groupId>
-        <artifactId>bom-2.361.x</artifactId>
-        <version>2091.v4987a_57a</version> <!-- a known available stable BOM -->
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
+        <!-- Jenkins core dependency -->
+        <dependency>
+            <groupId>org.jenkins-ci.main</groupId>
+            <artifactId>jenkins-core</artifactId>
+            <version>${jenkins.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jenkins plugin annotations -->
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>plugin-annotations</artifactId>
+            <version>3.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JUnit for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Add other dependencies as needed -->
     </dependencies>
-  </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>workflow-cps</artifactId>
-      <scope>test</scope>
-      <!-- No version needed, managed by BOM -->
-    </dependency>
-  </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jenkins-ci.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <version>4.42</version>
+                <configuration>
+                    <jenkinsVersion>${jenkins.version}</jenkinsVersion>
+                    <pluginFirstClassLoader>true</pluginFirstClassLoader>
+                    <failIfMissingSymbol>true</failIfMissingSymbol>
+                </configuration>
+            </plugin>
 
-  <repositories>
-    <repository>
-      <id>jenkins-releases</id>
-      <url>https://repo.jenkins-ci.org/releases/</url>
-    </repository>
-    <repository>
-      <id>jenkins-incrementals</id>
-      <url>https://repo.jenkins-ci.org/incrementals/</url>
-    </repository>
-  </repositories>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.level}</source>
+                    <target>${java.level}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
